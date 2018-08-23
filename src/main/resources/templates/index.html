@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>查询成绩</title>
+</head>
+<body>
+	<form id="login" action="#">
+		学号：<input id="xh" name="xh" type="text"> <br> 密码：<input
+			id="mm" name="mm" type="password"> <br> <input
+			id="submit" name="submit" value="登录" type="button"
+			onclick="doLogin();">
+	</form>
+	<table id="score">
+
+	</table>
+	<script src="jquery.min.js"></script>
+	<script>
+		function doLogin() {
+			$.post("/doLogin", {
+				"xh" : $('#xh').val(),
+				"mm" : $('#mm').val()
+			}, function(data) {
+				$('#score').empty();
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					html += ("<tr><td>" + data[i].name + "</td><td>"
+							+ data[i].score + "</td></tr>");
+				}
+				$('#score').append(html);
+				console.log(data);
+				console.log(data.length);
+			})
+		}
+	</script>
+</body>
+</html>
