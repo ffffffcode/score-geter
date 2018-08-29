@@ -22,6 +22,16 @@ public class IndexController {
 		return "index";
 	}
 
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "/login";
+	}
+
+	@RequestMapping(value = "/score")
+	public String score() {
+		return "/score";
+	}
+
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Score> doLogin(String xh, String mm) {
