@@ -31,20 +31,21 @@ body {
 				</div>
 
 				<div class="login-form">
-					<div class="form-group ">
-						<input type="text" class="form-control" value="" placeholder="学号"
-							id="xh" name="xh" required> <span
-							class="form-control-feedback fui-user"></span>
-					</div>
+					<form action="/postLogin" method="post">
+						<div class="form-group ">
+							<input type="text" class="form-control" value="" placeholder="学号"
+								id="xh" name="xh" required> <span
+								class="form-control-feedback fui-user"></span>
+						</div>
 
-					<div class="form-group ">
-						<input type="password" class="form-control" value=""
-							placeholder="密码" id="mm" name="mm" required> <span
-							class="form-control-feedback fui-lock"></span>
-					</div>
+						<div class="form-group ">
+							<input type="password" class="form-control" value=""
+								placeholder="密码" id="mm" name="mm" required> <span
+								class="form-control-feedback fui-lock"></span>
+						</div>
 
-					<button class="btn btn-primary btn-large btn-block"
-						onclick="doLogin();">登录</button>
+						<button class="btn btn-primary btn-large btn-block" type="submit">登录</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -67,25 +68,10 @@ body {
 
 	<script>
 		function doLogin() {
-			$
-					.post(
-							"/doLogin",
-							{
-								"xh" : $('#xh').val(),
-								"mm" : $('#mm').val()
-							},
-							function(data) {
-								console.log(data);
-								console.log(data.length);
-								$('#score').empty();
-
-								var html = "<h3 class='tile-title'>2017-2018 #2</h3>";
-								for (var i = 0; i < data.length; i++) {
-									html += ("<p>" + data[i].name + " "
-											+ data[i].score + "</p>");
-								}
-								$('#score').append(html);
-							})
+			$.post("/postLogin", {
+				"xh" : $('#xh').val(),
+				"mm" : $('#mm').val()
+			})
 		}
 	</script>
 </body>

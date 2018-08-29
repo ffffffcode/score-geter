@@ -14,6 +14,7 @@ import ex.aaronfae.util.ScoreUtil;
 @Controller
 public class IndexController {
 
+	// TODO cookie需要“线程安全”
 	private Header cookie = null;
 	private String url = null;
 
@@ -24,12 +25,12 @@ public class IndexController {
 
 	@RequestMapping(value = "/login")
 	public String login() {
-		return "/login";
+		return "login";
 	}
 
 	@RequestMapping(value = "/score")
 	public String score() {
-		return "/score";
+		return "score";
 	}
 
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
@@ -43,7 +44,14 @@ public class IndexController {
 	@RequestMapping(value = "/getScore")
 	@ResponseBody
 	public List<Score> getScore() {
-		List<Score> score = ScoreUtil.getSemesterScore(url, cookie, "2017-2018", "1");
+		List<Score> score = ScoreUtil.getSemesterScore(url, cookie, "2017-2018", "2");
 		return score;
+	}
+
+	@RequestMapping(value = "/postLogin", method = RequestMethod.POST)
+	public String postLogin(String xh, String mm) {
+		cookie = ScoreUtil.login(xh, mm);
+		url = "http://61.142.33.204/xscj_gc.aspx?xh=" + xh;
+		return "redirect:score";
 	}
 }

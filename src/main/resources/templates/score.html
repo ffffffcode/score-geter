@@ -24,7 +24,8 @@ body {
 </head>
 <body>
 	<div class="container">
-		<div class="row"><div class="col-md-2"></div>
+		<div class="row">
+			<div class="col-md-2"></div>
 			<div class="col-md-7">
 				<div class="tile" id="score">
 					<h3 class="tile-title">2017-2018 #2</h3>
@@ -51,5 +52,21 @@ body {
 	<script src="/js/flat-ui.min.js"></script>
 	<script src="/js/application.js"></script>
 
+	<script>
+		$(document).ready(function() {
+			$.get("/getScore", function(data) {
+				console.log(data);
+				$('#score').empty();
+
+                var html = "<h3 class='tile-title'>2017-2018 #2</h3><br>";
+                for (var i = 0; i < data.length; i++) {
+                    html += ("<span>" + data[i].name + " "
+                            + data[i].score + "</span><br>");
+                }
+                html += "<br>"
+                $('#score').append(html);
+			})
+		});
+	</script>
 </body>
 </html>
