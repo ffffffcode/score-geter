@@ -1,36 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <title>查询成绩</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Loading Bootstrap -->
+<link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+
+<!-- Loading Flat UI Pro -->
+<link href="css/flat-ui.min.css" rel="stylesheet">
+
+<style>
+body {
+	background-color: #2FC2A5;
+	/* background-color: #1ABC9C; */
+}
+
+.container {
+	margin-top: 32px;
+}
+
+p {
+	margin-bottom: 11px;
+}
+</style>
 </head>
 <body>
-	<form id="login" action="#">
-		学号：<input id="xh" name="xh" type="text"> <br> 密码：<input
-			id="mm" name="mm" type="password"> <br> <input
-			id="submit" name="submit" value="登录" type="button"
-			onclick="doLogin();">
-	</form>
-	<table id="score">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="tile" id="score">
+					<h3 class="tile-title">2017-2018 #2</h3>
+				</div>
+			</div>
+			<div class="col-md-1">
+				<div id="vertical-slider" style="height: 500px;"></div>
+			</div>
+			<div class="col-md-4">
+				<div class="login-form">
+					<div class="form-group ">
+						<input type="text" class="form-control" value="" placeholder="学号"
+							id="xh" name="xh" required> <span
+							class="form-control-feedback fui-user"></span>
+					</div>
 
-	</table>
-	<script src="jquery.min.js"></script>
+					<div class="form-group ">
+						<input type="password" class="form-control" value=""
+							placeholder="密码" id="mm" name="mm" required> <span
+							class="form-control-feedback fui-lock"></span>
+					</div>
+
+					<button class="btn btn-primary btn-large btn-block"
+						onclick="doLogin();">登录</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+
+	<!-- Bootstrap 4 requires Popper.js -->
+	<!-- 	<script src="https://unpkg.com/popper.js@1.14.1/dist/umd/popper.min.js"
+		crossorigin="anonymous"></script> -->
+
+	<!-- 	<script src="http://vjs.zencdn.net/6.6.3/video.js"></script> -->
+
+	<script src="/js/flat-ui.min.js"></script>
+	<script src="/js/application.js"></script>
+
+
 	<script>
 		function doLogin() {
-			$.post("/doLogin", {
-				"xh" : $('#xh').val(),
-				"mm" : $('#mm').val()
-			}, function(data) {
-				$('#score').empty();
-				var html = "";
-				for (var i = 0; i < data.length; i++) {
-					html += ("<tr><td>" + data[i].name + "</td><td>"
-							+ data[i].score + "</td></tr>");
-				}
-				$('#score').append(html);
-				console.log(data);
-				console.log(data.length);
-			})
+			$
+					.post(
+							"/doLogin",
+							{
+								"xh" : $('#xh').val(),
+								"mm" : $('#mm').val()
+							},
+							function(data) {
+								console.log(data);
+								console.log(data.length);
+								$('#score').empty();
+
+								var html = "<h3 class='tile-title'>2017-2018 #2</h3>";
+								for (var i = 0; i < data.length; i++) {
+									html += ("<p>" + data[i].name + " "
+											+ data[i].score + "</p>");
+								}
+								$('#score').append(html);
+							})
 		}
 	</script>
 </body>

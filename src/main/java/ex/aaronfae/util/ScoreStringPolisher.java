@@ -14,7 +14,12 @@ public class ScoreStringPolisher {
 
 	public static List<Score> polish(String html) {
 		Document doc = Jsoup.parse(html);
+		// TODO 这里用#divShow1取元素存在Bug：#divShow1有时候并不是成绩列表
 		Element divShow1 = doc.getElementById("divShow1");
+		if (null == divShow1) {
+			return null;
+		}
+
 		Elements trElements = divShow1.child(0).child(0).getElementsByTag("tr");
 
 		List<Score> scoreList = new ArrayList<>();
